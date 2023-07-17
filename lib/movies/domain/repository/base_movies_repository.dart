@@ -1,7 +1,9 @@
+import 'package:cinemana/core/error/failure.dart';
 import 'package:cinemana/movies/domain/entities/movie.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class BaseMoviesRepository {
-  Future<List<Movie>> getNowPlaying();
-  Future<List<Movie>> getPopular();
-  Future<List<Movie>> getTopRated();
+  Future<Either<Failure, List<Movie>>> getNowPlaying();
+  Future<Either<Failure, List<Movie>>> getPopular();
+  Future<Either<Failure, List<Movie>>> getTopRated();
 }

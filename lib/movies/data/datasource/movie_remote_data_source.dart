@@ -1,3 +1,5 @@
+import 'package:cinemana/core/error/error_message_model.dart';
+import 'package:cinemana/core/error/exceptions.dart';
 import 'package:cinemana/core/utils/api_constants.dart';
 import 'package:cinemana/movies/data/models/movie_model.dart';
 import 'package:dio/dio.dart';
@@ -17,7 +19,9 @@ class MovieRemoteDataSource implements BaseMovieDataSource {
         (e) => MovieModel.fromJson(e),
       ));
     } else {
-      throw Exception();
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
     }
   }
 
@@ -29,7 +33,9 @@ class MovieRemoteDataSource implements BaseMovieDataSource {
         (e) => MovieModel.fromJson(e),
       ));
     } else {
-      throw Exception();
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
     }
   }
 
@@ -41,7 +47,9 @@ class MovieRemoteDataSource implements BaseMovieDataSource {
         (e) => MovieModel.fromJson(e),
       ));
     } else {
-      throw Exception();
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
     }
   }
 }
