@@ -6,6 +6,7 @@ import 'package:cinemana/movies/domain/entities/movie.dart';
 import 'package:cinemana/movies/presentation/controllers/cubit/now_playing_movies_cubit.dart';
 import 'package:cinemana/movies/presentation/controllers/cubit/popular_movies_cubit.dart';
 import 'package:cinemana/movies/presentation/controllers/cubit/top_rated_movies_cubit.dart';
+import 'package:cinemana/movies/presentation/controllers/cubit/upcoming_movies_cubit.dart';
 import 'package:cinemana/movies/presentation/widgets/movies_category_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cinemana/core/utils/constant_strings.dart';
@@ -67,6 +68,21 @@ class MoviesScreen extends StatelessWidget {
                 } else {
                   return MoviesCategory(
                     category: 'Top Rated',
+                    movies: moviesList,
+                  );
+                }
+              },
+            ),
+            BlocBuilder<UpcomingMoviesCubit, UpcomingMoviesState>(
+              builder: (context, state) {
+                if (state is GetUpcomingMoviesSuccess) {
+                  return MoviesCategory(
+                    category: 'Upcoming',
+                    movies: state.upcomingMovies,
+                  );
+                } else {
+                  return MoviesCategory(
+                    category: 'Upcoming',
                     movies: moviesList,
                   );
                 }

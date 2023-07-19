@@ -42,4 +42,14 @@ class MoviesRepository implements BaseMoviesRepository {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getUpcoming() async {
+    final result = await baseMovieDataSource.getUpcoming();
+    try {
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(failure.errorMessageModel.statusMessage));
+    }
+  }
 }

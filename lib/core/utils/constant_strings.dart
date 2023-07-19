@@ -6,6 +6,7 @@ class StringConstants {
       "$baseURL/movie/now_playing?api_key=$apiKey";
   static const String popularPath = "$baseURL/movie/popular?api_key=$apiKey";
   static const String topRatedPath = "$baseURL/movie/top_rated?api_key=$apiKey";
+  static const String upconmingPath = "$baseURL/movie/upcoming?api_key=$apiKey";
 
   static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
 
