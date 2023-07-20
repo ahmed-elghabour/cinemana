@@ -1,10 +1,8 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cinemana/core/utils/constant_strings.dart';
 import 'package:cinemana/movies/domain/entities/movie.dart';
+import 'package:cinemana/movies/presentation/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MoviesCategory extends StatelessWidget {
   final String category;
@@ -55,33 +53,7 @@ class MoviesCategory extends StatelessWidget {
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 final movie = movies[index];
-                return Container(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: InkWell(
-                    onTap: () {
-                      /// TODO : NAVIGATE TO  MOVIE DETAILS
-                    },
-                    child: ClipRRect(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(8.0)),
-                      child: CachedNetworkImage(
-                        width: 120.0,
-                        fit: BoxFit.cover,
-                        imageUrl: StringConstants.imageUrl(movie.backdropPath),
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: Colors.grey[850]!,
-                          highlightColor: Colors.grey[800]!,
-                          child: const SizedBox(
-                            height: 170.0,
-                            width: 120.0,
-                          ),
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                    ),
-                  ),
-                );
+                return MovieCard(movie: movie);
               },
             ),
           ),

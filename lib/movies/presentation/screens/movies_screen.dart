@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinemana/core/utils/dummy.dart';
@@ -51,9 +50,11 @@ class MoviesScreen extends StatelessWidget {
                     movies: state.popularMovies,
                   );
                 } else {
-                  return MoviesCategory(
-                    category: 'Popular',
-                    movies: moviesList,
+                  return const SizedBox(
+                    height: 170.0,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
               },
@@ -66,9 +67,11 @@ class MoviesScreen extends StatelessWidget {
                     movies: state.topRatedMovies,
                   );
                 } else {
-                  return MoviesCategory(
-                    category: 'Top Rated',
-                    movies: moviesList,
+                  return const SizedBox(
+                    height: 170.0,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
               },
@@ -81,9 +84,11 @@ class MoviesScreen extends StatelessWidget {
                     movies: state.upcomingMovies,
                   );
                 } else {
-                  return MoviesCategory(
-                    category: 'Upcoming',
-                    movies: moviesList,
+                  return const SizedBox(
+                    height: 170.0,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
               },
