@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cinemana/core/services/service_locator.dart';
 import 'package:cinemana/core/utils/constant_strings.dart';
 import 'package:cinemana/movies/domain/entities/movie.dart';
+import 'package:cinemana/movies/domain/usecase/get_movie_details_usecase.dart';
+import 'package:cinemana/movies/domain/usecase/get_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -18,7 +21,8 @@ class MovieCard extends StatelessWidget {
       padding: const EdgeInsets.only(right: 8.0),
       child: InkWell(
         onTap: () {
-          /// TODO : NAVIGATE TO  MOVIE DETAILS
+          GetUsecase g = GetMovieDetailsUsecase(sl());
+          g.execute(movie.id);
         },
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(8.0)),

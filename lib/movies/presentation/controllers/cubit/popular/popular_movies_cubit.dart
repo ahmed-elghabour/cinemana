@@ -3,22 +3,22 @@ import 'package:cinemana/movies/domain/usecase/get_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'top_rated_movies_state.dart';
+part 'popular_movies_state.dart';
 
-class TopRatedMoviesCubit extends Cubit<TopRatedMoviesState> {
+class PopularMoviesCubit extends Cubit<PopularMoviesState> {
   final GetUsecase getUsecase;
-  TopRatedMoviesCubit({required this.getUsecase}) : super(GetMoviesInitial());
+  PopularMoviesCubit({required this.getUsecase}) : super(GetMoviesInitial());
 
-  void getTopRatedMovies() async {
-    emit(GetTopRatedMoviesLoading());
-    final result = await getUsecase.execute();
+  void getPopularMovies() async {
+    emit(GetPopularMoviesLoading());
+    final result = await getUsecase.execute(const NoParams());
     //emit(GetMoviesSuccess(result.fold((l) => , (r) => r)));
     result.fold(
       (l) {
-        emit(GetTopRatedMoviesFail());
+        emit(GetPopularMoviesFail());
       },
       (r) {
-        emit(GetTopRatedMoviesSuccess(r));
+        emit(GetPopularMoviesSuccess(r));
       },
     );
   }

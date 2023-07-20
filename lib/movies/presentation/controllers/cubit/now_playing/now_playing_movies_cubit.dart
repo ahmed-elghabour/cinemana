@@ -11,7 +11,7 @@ class NowPlayingMoviesCubit extends Cubit<NowPlayingMoviesState> {
 
   void getNowPlayingMovies() async {
     emit(GetNowPlayingMoviesLoading());
-    final result = await getUsecase.execute();
+    final result = await getUsecase.execute(const NoParams());
     //emit(GetMoviesSuccess(result.fold((l) => , (r) => r)));
     result.fold(
       (l) {

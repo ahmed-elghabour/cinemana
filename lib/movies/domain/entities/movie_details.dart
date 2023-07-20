@@ -1,6 +1,7 @@
 import 'package:cinemana/movies/domain/entities/genres.dart';
+import 'package:equatable/equatable.dart';
 
-class MovieDetail {
+class MovieDetails extends Equatable {
   final String backdropPath;
   final List<Genres> genres;
   final int id;
@@ -10,7 +11,7 @@ class MovieDetail {
   final String title;
   final double voteAverage;
 
-  const MovieDetail({
+  const MovieDetails({
     required this.backdropPath,
     required this.genres,
     required this.id,
@@ -20,4 +21,16 @@ class MovieDetail {
     required this.title,
     required this.voteAverage,
   });
+
+  @override
+  List<Object> get props => [
+        backdropPath,
+        genres,
+        id,
+        overview,
+        releaseDate,
+        runtime,
+        title,
+        voteAverage,
+      ];
 }

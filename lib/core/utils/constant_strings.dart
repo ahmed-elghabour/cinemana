@@ -11,4 +11,7 @@ class StringConstants {
   static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
 
   static String imageUrl(String path) => '$baseImageUrl$path';
+  static String movieUrl(int id) => '$baseURL/movie/$id?api_key=$apiKey';
+  static String recommendationUrl(int id) =>
+      "$baseURL/movie/$id/recommendations?api_key=$apiKey";
 }
