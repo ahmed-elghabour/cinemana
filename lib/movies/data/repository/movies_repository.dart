@@ -1,6 +1,7 @@
 import 'package:cinemana/core/error/exceptions.dart';
 import 'package:cinemana/core/error/failure.dart';
 import 'package:cinemana/movies/data/datasource/movie_remote_data_source.dart';
+import 'package:cinemana/movies/data/models/movie_model.dart';
 import 'package:cinemana/movies/domain/entities/movie.dart';
 import 'package:cinemana/movies/domain/entities/movie_details.dart';
 import 'package:cinemana/movies/domain/entities/recommendation.dart';
@@ -66,8 +67,7 @@ class MoviesRepository implements BaseMoviesRepository {
   }
 
   @override
-  Future<Either<Failure, List<Recommendation>>> getRecommendation(
-      int movieId) async {
+  Future<Either<Failure, List<Movie>>> getRecommendation(int movieId) async {
     final result = await baseMovieDataSource.getRecommendation(movieId);
     try {
       return Right(result);

@@ -42,23 +42,43 @@ class MoviesCategory extends StatelessWidget {
             ],
           ),
         ),
-        FadeIn(
-          duration: const Duration(milliseconds: 500),
-          child: SizedBox(
-            height: 170.0,
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              itemCount: movies.length,
-              itemBuilder: (context, index) {
-                final movie = movies[index];
-                return MovieCard(movie: movie);
-              },
+        _returnListViewOfMoviesOrText()
+      ],
+    );
+  }
+
+  Widget _returnListViewOfMoviesOrText() {
+    if (movies.isEmpty) {
+      return const SizedBox(
+        height: 170.0,
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Sorry! There are no Recommendations for this movie right now',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
             ),
           ),
         ),
-      ],
-    );
+      );
+    } else {
+      return FadeIn(
+        duration: const Duration(milliseconds: 500),
+        child: SizedBox(
+          height: 170.0,
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            itemCount: movies.length,
+            itemBuilder: (context, index) {
+              final movie = movies[index];
+              return MovieCard(movie: movie);
+            },
+          ),
+        ),
+      );
+    }
   }
 }

@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cinemana/core/utils/dummy.dart';
+import 'package:cinemana/core/utils/dummy_movies.dart';
+import 'package:cinemana/core/utils/utils.dart';
 import 'package:cinemana/movies/domain/entities/movie.dart';
 import 'package:cinemana/movies/presentation/controllers/cubit/now_playing/now_playing_movies_cubit.dart';
 import 'package:cinemana/movies/presentation/controllers/cubit/popular/popular_movies_cubit.dart';
@@ -8,7 +8,6 @@ import 'package:cinemana/movies/presentation/controllers/cubit/top_rated/top_rat
 import 'package:cinemana/movies/presentation/controllers/cubit/upcoming/upcoming_movies_cubit.dart';
 import 'package:cinemana/movies/presentation/widgets/movies_category_view.dart';
 import 'package:flutter/material.dart';
-import 'package:cinemana/core/utils/constant_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoviesScreen extends StatelessWidget {
@@ -114,7 +113,7 @@ class NowPlayingCategory extends StatelessWidget {
         onPageChanged: (index, reason) {},
       ),
       items: movies.map(
-        (item) {
+        (movie) {
           return GestureDetector(
             key: const Key('openMovieMinimalDetail'),
             onTap: () {
@@ -140,12 +139,8 @@ class NowPlayingCategory extends StatelessWidget {
                     );
                   },
                   blendMode: BlendMode.dstIn,
-                  child: CachedNetworkImage(
-                    height: 560.0,
-                    fadeInDuration: const Duration(milliseconds: 500),
-                    imageUrl: StringConstants.imageUrl(item.backdropPath),
-                    fit: BoxFit.cover,
-                  ),
+                  child: Utils.getMovieImage(
+                      backdropPath: movie.backdropPath, isNowPlaying: true),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -175,7 +170,7 @@ class NowPlayingCategory extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
                         child: Text(
-                          item.title,
+                          movie.title,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 24,

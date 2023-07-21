@@ -6,12 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'movie_details_state.dart';
 
 class MovieDetailsCubit extends Cubit<MovieDetailsState> {
-  final GetUsecase getUsecase;
-  MovieDetailsCubit(this.getUsecase) : super(GetMovieDetailsInitial());
+  final GetUsecase getMovieDetailsUsecase;
 
-  void getMovieDetails() async {
+  MovieDetailsCubit({
+    required this.getMovieDetailsUsecase,
+  }) : super(GetMovieDetailsInitial());
+
+  void getMovieDetails(int id) async {
     emit(GetMovieDetailsLoading());
-    final result = await getUsecase.execute(const NoParams());
+    final result = await getMovieDetailsUsecase.execute(id);
     //emit(GetMoviesSuccess(result.fold((l) => , (r) => r)));
     result.fold(
       (l) {

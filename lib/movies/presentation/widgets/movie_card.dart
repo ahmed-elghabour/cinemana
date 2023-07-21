@@ -1,19 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cinemana/core/services/service_locator.dart';
-import 'package:cinemana/core/utils/constant_strings.dart';
+import 'package:cinemana/core/utils/utils.dart';
 import 'package:cinemana/movies/domain/entities/movie.dart';
-import 'package:cinemana/movies/domain/usecase/get_movie_details_usecase.dart';
-import 'package:cinemana/movies/domain/usecase/get_usecase.dart';
+import 'package:cinemana/movies/presentation/screens/movie_details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MovieCard extends StatelessWidget {
+  final Movie movie;
   const MovieCard({
     super.key,
     required this.movie,
   });
-
-  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +16,13 @@ class MovieCard extends StatelessWidget {
       padding: const EdgeInsets.only(right: 8.0),
       child: InkWell(
         onTap: () {
-          GetUsecase g = GetMovieDetailsUsecase(sl());
-          g.execute(movie.id);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  MovieDetailsScreen(id: movie.id),
+            ),
+          );
         },
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(8.0)),
@@ -31,20 +31,8 @@ class MovieCard extends StatelessWidget {
             fit: StackFit.passthrough,
             /* clipBehavior: Clip.hardEdge, */
             children: [
-              CachedNetworkImage(
-                width: 120.0,
-                fit: BoxFit.cover,
-                imageUrl: StringConstants.imageUrl(movie.backdropPath),
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: Colors.grey[850]!,
-                  highlightColor: Colors.grey[800]!,
-                  child: const SizedBox(
-                    height: 170.0,
-                    width: 120.0,
-                  ),
-                ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
+              Utils.getMovieImage(
+                  backdropPath: movie.backdropPath, isNowPlaying: false),
               Positioned(
                 right: 4,
                 top: 4,
