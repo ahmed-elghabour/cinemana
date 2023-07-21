@@ -32,7 +32,10 @@ class MovieCard extends StatelessWidget {
             /* clipBehavior: Clip.hardEdge, */
             children: [
               Utils.getMovieImage(
-                  backdropPath: movie.backdropPath, isNowPlaying: false),
+                backdropPath: movie.backdropPath,
+                isNowPlaying: false,
+                context: context,
+              ),
               Positioned(
                 right: 4,
                 top: 4,
@@ -53,7 +56,7 @@ class MovieCard extends StatelessWidget {
                           const SizedBox(
                             width: 4.0,
                           ),
-                          Text(movie.voteAverage.toString()),
+                          Text(movie.voteAverage.toString().substring(0, 3)),
                         ],
                       ),
                     ),

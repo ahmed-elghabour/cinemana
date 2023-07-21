@@ -6,6 +6,7 @@ import 'package:cinemana/movies/presentation/controllers/cubit/now_playing/now_p
 import 'package:cinemana/movies/presentation/controllers/cubit/popular/popular_movies_cubit.dart';
 import 'package:cinemana/movies/presentation/controllers/cubit/top_rated/top_rated_movies_cubit.dart';
 import 'package:cinemana/movies/presentation/controllers/cubit/upcoming/upcoming_movies_cubit.dart';
+import 'package:cinemana/movies/presentation/screens/movie_details_screen.dart';
 import 'package:cinemana/movies/presentation/widgets/movies_category_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,23 @@ class MoviesScreen extends StatelessWidget {
                 } else {
                   return NowPlayingCategory(
                     movies: moviesList,
+                  );
+                }
+              },
+            ),
+            BlocBuilder<UpcomingMoviesCubit, UpcomingMoviesState>(
+              builder: (context, state) {
+                if (state is GetUpcomingMoviesSuccess) {
+                  return MoviesCategory(
+                    category: 'Upcoming',
+                    movies: state.upcomingMovies,
+                  );
+                } else {
+                  return const SizedBox(
+                    height: 170.0,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
               },
@@ -75,23 +93,6 @@ class MoviesScreen extends StatelessWidget {
                 }
               },
             ),
-            BlocBuilder<UpcomingMoviesCubit, UpcomingMoviesState>(
-              builder: (context, state) {
-                if (state is GetUpcomingMoviesSuccess) {
-                  return MoviesCategory(
-                    category: 'Upcoming',
-                    movies: state.upcomingMovies,
-                  );
-                } else {
-                  return const SizedBox(
-                    height: 170.0,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-              },
-            ),
             const SizedBox(height: 50.0),
           ],
         ),
@@ -108,7 +109,7 @@ class NowPlayingCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 400.0,
+        height: MediaQuery.sizeOf(context).height / 1.7,
         viewportFraction: 1.0,
         onPageChanged: (index, reason) {},
       ),
@@ -117,7 +118,13 @@ class NowPlayingCategory extends StatelessWidget {
           return GestureDetector(
             key: const Key('openMovieMinimalDetail'),
             onTap: () {
-              /// TODO : NAVIGATE TO MOVIE DETAILS
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      MovieDetailsScreen(id: movie.id),
+                ),
+              );
             },
             child: Stack(
               children: [
@@ -140,7 +147,10 @@ class NowPlayingCategory extends StatelessWidget {
                   },
                   blendMode: BlendMode.dstIn,
                   child: Utils.getMovieImage(
-                      backdropPath: movie.backdropPath, isNowPlaying: true),
+                    backdropPath: movie.backdropPath,
+                    isNowPlaying: true,
+                    context: context,
+                  ),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
