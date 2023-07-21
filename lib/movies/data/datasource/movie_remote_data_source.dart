@@ -75,7 +75,6 @@ class MovieRemoteDataSource extends BaseMovieDataSource {
   @override
   Future<MovieDetailsModel> getMovieDetails(int movieId) async {
     final response = await Dio().get(StringConstants.movieUrl(movieId));
-    print(response);
     if (response.statusCode == 200) {
       return MovieDetailsModel.fromJson(response.data);
     } else {

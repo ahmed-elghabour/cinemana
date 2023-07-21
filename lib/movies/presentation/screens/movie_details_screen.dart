@@ -60,9 +60,10 @@ class MovieDetailsContent extends StatelessWidget {
                           Colors.indigoAccent.shade700.withAlpha(40),
                       expandedHeight: 250.0,
                       flexibleSpace: FlexibleSpaceBar(
-                          background: Utils.getMovieImage(
-                              backdropPath: state.movieDetails.backdropPath,
-                              isNowPlaying: false)),
+                        background: Utils.getMovieImage(
+                            backdropPath: state.movieDetails.backdropPath,
+                            isNowPlaying: false),
+                      ),
                     ),
                     SliverToBoxAdapter(
                       child: FadeInUp(
